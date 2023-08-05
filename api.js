@@ -7,6 +7,7 @@ const cors = require('cors');
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "*");
     res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept"
@@ -72,9 +73,6 @@ app.get('/board', (req, res)=> {
 
 app.post('/addTaak', (req, res) => {
     
-    console.log('beer');
-    console.log(req.query.sc_id + ' ' + req.query.titel +' hoen')
-
     let insertQuery = `INSERT INTO taken(sc_id, titel) VALUES(${req.query.sc_id}, '${req.query.titel}')`
 
     console.log(insertQuery)
@@ -82,8 +80,32 @@ app.post('/addTaak', (req, res) => {
     client.query(insertQuery, (err, result) => {
         if(!err) {
             res.send('Insertion was successfull')
-        }
+       }
         else{ console.log(err.message)}
     })
+//    client.end
+})
+
+app.put('/modifyTaak', (req, res) => {
+    console.log("kuif")
+    console.log(req.query)
+
+    console.log( 'In put taak ' + req.query.taak_id + req.query.sc_id + req.query.titel + req.query.omschrijving)
+    
+   let updateQuery = `UPDATE taken SET titel = '${req.query.titel}', omschrijving = '${req.query.omschrijving}' 
+   where task_id=${req.query.taak_id} `
+
+    console.log(updateQuery)
+
+    client.query(updateQuery, (err, result) => {
+        if(!err) {
+            res.send('Insertion was successfull')
+       }
+        else{ console.log(err.message)}
+   })
     client.end
 })
+
+//UPDATE table_name
+//SET column1 = value1, column2 = value2, ...
+//WHERE condition; 
