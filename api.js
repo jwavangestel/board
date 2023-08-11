@@ -87,19 +87,19 @@ app.post('/addTaak', (req, res) => {
 })
 
 app.put('/modifyTaak', (req, res) => {
-    console.log("kuif")
-    console.log(req.query)
+//    console.log("kuif")
+//    console.log(req.query)
 
-    console.log( 'In put taak ' + req.query.taak_id + req.query.sc_id + req.query.titel + req.query.omschrijving)
+//    console.log( 'In put taak ' + req.query.taak_id + req.query.sc_id + req.query.titel + req.query.omschrijving)
     
    let updateQuery = `UPDATE taken SET titel = '${req.query.titel}', omschrijving = '${req.query.omschrijving}' 
    where task_id=${req.query.taak_id} `
 
-    console.log(updateQuery)
+//   console.log(updateQuery)
 
     client.query(updateQuery, (err, result) => {
         if(!err) {
-            res.send('Insertion was successfull')
+            
        }
         else{ console.log(err.message)}
    })
