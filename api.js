@@ -33,7 +33,7 @@ app.get('/status', (req, res)=>{
 
 
 app.get('/taken', (req, res)=>{
-    client.query(`Select * from taken`, (err, result)=>{
+    client.query(`Select * from taken order by sc_id, task_pos`, (err, result)=>{
         if(!err){
             res.send(result.rows);
         }
@@ -41,8 +41,8 @@ app.get('/taken', (req, res)=>{
     client.end;
 })
 
-app.get('/books', (req, res)=>{
-    client.query(`Select id, title from books`, (err, result)=>{
+app.get('/taakpositie', (req, res)=>{
+    client.query(`Select * from taakpositie`, (err, result)=>{
         if(!err){
             res.send(result.rows);
         }
@@ -109,3 +109,12 @@ app.put('/modifyTaak', (req, res) => {
 //UPDATE table_name
 //SET column1 = value1, column2 = value2, ...
 //WHERE condition; 
+
+app.get('/board3', (req, res)=> {
+    client.query(`Select * from board3`, (err, result)=> {
+        if(!err){
+            res.send(result.rows);
+        }
+    });
+    client.end;
+})
